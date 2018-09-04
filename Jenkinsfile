@@ -27,5 +27,20 @@ spec:
         }
       }
     }
+    stage('smoke') {
+     steps {
+       sh './smoke.sh'
+     }
+    }
+    stage('performance-test') {
+       sh 'perf-test.sh'
+    }
+    stage('deploy-to-prod') {
+      steps {
+        container('helm'){
+          sh "helm upgrade -i prodman-prod ./chart --namespace production"
+        }
+      }
+    }
   }
 }
