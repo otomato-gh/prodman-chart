@@ -4,5 +4,5 @@
 
 global:
   ordersVersion: 9
-  productsVersion: 18.1
+  productsVersion: 19
   frontVersion: 7
