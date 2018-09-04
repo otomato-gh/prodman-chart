@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: products
+  labels:
+    run: products
+spec:
+  ports:
+    - name: http-products
+      port: 5000
+      protocol: TCP
+      targetPort: 5000
+  selector:
+      run: products
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: products
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: products
+    spec:
+      containers:
+      - name: products
+        image: otomato/oto-products:{{ .Values.global.productsVersion }}
+        ports:
+        - containerPort: 5000

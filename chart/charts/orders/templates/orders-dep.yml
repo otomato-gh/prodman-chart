@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders
+  labels:
+    run: orders
+spec:
+  ports:
+  - name: http-orders
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+      run: orders
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: orders
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: orders
+    spec:
+      containers:
+      - name: orders
+        image: otomato/oto-orders:{{ .Values.global.ordersVersion }}
+        ports:
+        - containerPort: 8080
