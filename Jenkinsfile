@@ -34,7 +34,7 @@ spec:
     }
     stage('performance-test') {
       steps {
-       sh 'perf-test.sh'
+       sh './perf-test.sh'
       }
     }
 
