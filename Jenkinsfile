@@ -33,8 +33,11 @@ spec:
      }
     }
     stage('performance-test') {
+      steps {
        sh 'perf-test.sh'
+      }
     }
+
     stage('deploy-to-prod') {
       steps {
         container('helm'){
