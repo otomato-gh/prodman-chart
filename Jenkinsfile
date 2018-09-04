@@ -23,7 +23,7 @@ spec:
     stage('deploy-to-staging') {
       steps {
         container('helm'){
-          sh "helm install ./chart --name prodman-${BUILD_NUMBER} --namespace staging"
+          sh "helm upgrade -i prodman ./chart --namespace staging"
         }
       }
     }
