@@ -6,14 +6,12 @@ metadata:
     run: front
 spec:
   ports:
-    - port: 3000
+    - name: http
+      port: 3000
       protocol: TCP
       targetPort: 3000
   selector:
       run: front
-  type: LoadBalancer
-  loadBalancerSourceRanges:
-  - 0.0.0.0/0
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment

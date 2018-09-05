@@ -23,7 +23,25 @@ spec:
     stage('deploy-to-staging') {
       steps {
         container('helm'){
-          sh "helm install ./chart --name prodman-${BUILD_NUMBER} --namespace staging"
+          sh "helm upgrade -i prodman ./chart --namespace staging"
+        }
+      }
+    }
+    stage('smoke') {
+     steps {
+       sh './smoke.sh'
+     }
+    }
+    stage('performance-test') {
+      steps {
+       sh './perf-test.sh'
+      }
+    }
+
+    stage('deploy-to-prod') {
+      steps {
+        container('helm'){
+          sh "helm upgrade -i prodman-prod ./chart --namespace production"
         }
       }
     }
